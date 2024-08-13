@@ -1,34 +1,61 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Voter Registration</title>
-		<link rel="stylesheet" href="/css/voter-reg.css" />
-	</head>
-	<body>
-		<div class="container">
-		
-			<h2>Voter Registration</h2>
-			<form action="/submit_registration" method="POST">
-				<label for="name">First Name:</label>
-				<input type="text" id="name" name="fName" required />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voter Registration</title>
+    <link rel="stylesheet" href="/css/voter-reg.css" />
+	<link rel="stylesheet" href="/css/dsiplayUserPhoto.css" />
+    <style>
+        /* Hide both the labels and the dropdowns initially */
+        .party-container, .position-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Voter Registration</h2>
+        <form action="/submit_registration" method="POST">
+            <label for="fName">First Name:</label>
+            <input type="text" id="fName" name="fName" required />
 
-				<label for="name">Middel Name:</label>
-				<input type="text" id="name" name="mName" />
+            <label for="mName">Middle Name:</label>
+            <input type="text" id="mName" name="mName" />
 
-				<label for="name">Last Name:</label>
-				<input type="text" id="name" name="lName" required />
+            <label for="lName">Last Name:</label>
+            <input type="text" id="lName" name="lName" required />
 
-        <label for="roles"></label>
-        <select name="" id="">
-          <option selected disabled value="">Select role</option>
-          <% roles.forEach(role => { %>
-          <option value="<%= role.id %>"><%= role.role_name %></option>
-          <% }) %>
-        </select>
+            <label for="role">Role:</label>
+            <select name="role" id="role" required>
+                <option selected disabled value="">Select role</option>
+                <% roles.forEach(role => { %>
+                    <option value="<%= role.id %>" data-role-name="<%= role.role_name %>"><%= role.role_name %></option>
+                <% }) %>
+            </select>
 
-				<label for="dob">Date of Birth:</label>
+            <div class="party-container">
+				<label for="role">Party:</label>
+				<select name="party" id="party" required>
+					<option selected disabled value="">Select party</option>
+					<% parties.forEach(party => { %>
+					<option value="<%= party.id %>"><%= party.party_Name %></option>
+					<% }) %>
+				</select>
+
+            </div>
+
+            <div class="position-container">
+                <label for="position">Position:</label>
+                <select name="position" id="position">
+                    <option selected disabled value="">Select position</option>
+                    <% positions.forEach(position => { %>
+                        <option value="<%= position.id %>"><%= position.position %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <label for="dob">Date of Birth:</label>
 				<input type="date" id="dob" name="dob" required />
 
 				<label for="address">Address:</label>
@@ -37,23 +64,21 @@
 				<label for="city">City:</label>
 				<input type="text" id="city" name="city" required />
 
-				<label for="state">County:</label>
-				<input type="text" id="state" name="county" required />
-
-				<!-- <label for="zip">Zip Code:</label>
-        <input type="text" id="zip" name="zip" required /> -->
+				<label for="county">County:</label>
+				<input type="text" id="county" name="county" required />
 
 				<label for="email">Email:</label>
 				<input type="email" id="email" name="email" />
 
 				<label for="phone">Phone Number:</label>
 				<input type="tel" id="phone" name="phone" required />
-
+				
 				<label for="photo">Photo</label>
-				<input type="file" id="photo" name="photo" required />
-
+				<input type="file" id="photo" name="photo" accept="image/*" required />
+				<img id="preview" />
 				<button type="submit">Register</button>
-			</form>
-		</div>
-	</body>
-</html>
+
+        </form>
+    </div>
+<%- include('../views/includes/end.ejs') %>
+

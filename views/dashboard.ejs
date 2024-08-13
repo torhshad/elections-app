@@ -1,14 +1,54 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-  </head>
-  <body>
-    <h1>Dashboard</h1>
-    <p>please login <a href="/login">login</a></p>
+<%- include('../views/includes/head.ejs') %>
+</head>
+<body>
+  
+    <header class="header">
+        <div class="logo">Election App</div>
+        <div class="login"><a href="/login" style="color: #fff; text-decoration: none;">Login</a></div>
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    </header>
+    
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="/" class="nav-link"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-users"></i>Voters</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-flag"></i>Parties</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-briefcase"></i>Positions</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-user-tie"></i>Contestants</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-vote-yea"></i>Elections</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-user"></i>Users</a></li>
+            </ul>
+        </div>
+        <div class="main">
+            <h1>Result Dashboard</h1>
+            <div class="info">
+                <div class="box">
+                    <p>Registered Voters</p>
+                    <p><%= registeredVoters %></p>
+                </div>
+                <div class="box">
+                    <p>Total Votes</p>
+                    <p><%= totalVotes %></p>
+                </div>
+            </div>
+            <div class="results">
+                <h2>Chairman</h2>
+                <% candidates.forEach(candidate => { %>
+                <div class="candidate">
+                    <p><%= candidate.name %></p>
+                    <p><%= candidate.votes %> Votes</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
 
-    <p><a href="/voter-registration">vote here</a></p>
-  </body>
-</html>
+
+    <p>Please login <a href="/login">login</a></p>
+    <p><a href="/voter-registration">Vote here</a></p>
+
+<%- include('../views/includes/end.ejs') %>
